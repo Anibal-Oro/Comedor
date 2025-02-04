@@ -1,5 +1,5 @@
 <?php
-	require_once "../config/conectdb.php";
+	include "../config/conectdb.php";
    
    //Almacenando datos
    $Menu=limpiarC($_POST['Menu']);
@@ -38,7 +38,7 @@
         exit();
     }
 
-    if(verificarD("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,50}",$Seco)){
+    if(verificarD("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,50}",$Seco)){
         echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>
@@ -48,7 +48,7 @@
         exit();
     }
 
-    if(verificarD("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,50}",$Salado)){
+    if(verificarD("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,50}",$Salado)){
         echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>
@@ -58,7 +58,7 @@
         exit();
     }
 
-    if(verificarD("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,50}",$Acompañante)){
+    if(verificarD("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,50}",$Acompañante)){
         echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>
@@ -68,7 +68,7 @@
         exit();
     }
 
-    if(verificarD("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ ]{1,50}",$Bebida)){
+    if(verificarD("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,50}",$Bebida)){
         echo '
             <div class="notification is-danger is-light">
                 <strong>¡Ocurrio un error inesperado!</strong><br>
@@ -114,22 +114,20 @@
     }
     $check_Menu=null;
 
-
-   //Guardando datos
-   $guardar_comida=conexion();
-   $guardar_comida=$guardar_comida->prepare("INSERT INTO comedor (Menu, Seco, Salado, Acompañante, Bebida, Cantidad, Disponible) VALUES(:Menu, :Seco, :Salado, :Acompañante, :Bebida, :Cantidad, :Disponible)");
-        
     $marcadores = [
-        ":Menu" => (int)$Menu,
-        ":Seco" => $Seco,
-        ":Salado" => $Salado,
-        ":Acompañante" => $Acompañante,
-        ":Bebida" => $Bebida,
-        ":Cantidad" => (int)$Cantidad,
-        ":Disponible" => (int)$Disponible
+        $Menu,
+        $Seco,
+        $Salado,
+        $Acompañante,
+        $Bebida,
+        $Cantidad,
+        $Disponible
     ];
     echo "<pre>"; print_r($marcadores); echo"</pre>";
 
+   //Guardando datos
+   $guardar_comida=conexion();
+   $guardar_comida=$guardar_comida->prepare("INSERT INTO comedor (Menu, Seco, Salado, Acompañante, Bebida, Cantidad, Disponible) VALUES(?, ?, ?, ?, ?, ?, ?)");
 
     // Imprimir la consulta SQL y los valores a insertar
     echo "<pre>"; print_r($guardar_comida); echo "</pre>";
@@ -161,7 +159,7 @@
             </div>
         ';
     
-    echo "<pre>"; print_r($guardar_comida->errorInfo()); echo "</pre>";
+    //echo "<pre>"; print_r($guardar_comida->errorInfo()); echo "</pre>";
     }
 
 $guardar_comida = null;

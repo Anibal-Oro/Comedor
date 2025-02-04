@@ -1,5 +1,5 @@
 <?php 
-    require_once "./config/conectdb.php";
+    include "../config/conectdb.php";
     //$conec=conexion();
     
     if (isset($_POST['login_usuario']) && isset($_POST['login_contraseña'])){
@@ -15,25 +15,25 @@
         $clave = validate($_POST['login_contraseña']);
 
         if (empty($usuario)){
-            header("Location: ./view/login.php?error-El Usuario es requerido");
+            header("Location: /Proyecto-Comedor/?error-El Usuario es requerido");
             exit();
         }elseif (empty($clave)){
-            header("Location: ./view/login.php?error-La Contraseña es requeriada");
+            header("Location: /Proyecto-Comedor/?error-La Contraseña es requeriada");
             exit();
         }else{
 
-            $sql = "SELECT * FROM usuario WHERE Usuario = :usuario AND clave = :clave";
+            $sql = "SELECT * FROM usuario WHERE Usuario = :usuario";
             $stmt = $conec->prepare($sql);
-            $stmt->execute([':usuario' => $usuario, ':clave' => $clave]);
+            $stmt->execute([':usuario' => $usuario]);
 
-            if ($stmt->rows() === 1){
+            if ($stmt->rowCount() === 1){
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
                 $_SESSION['usuario'] = $row['usuario'];
                 $_SESSION['id'] = $row['id'];
                 header("Location: index.php?view=home");
                 exit();
             }else {
-                header("Location: ./view/login.php?error-El usuario o la clave son incorrectas");
+                header("Location: /Proyecto-Comedor/?error=El usuario o la clave son incorrectas");
                 exit();
             }
         }

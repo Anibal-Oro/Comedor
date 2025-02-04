@@ -1,4 +1,4 @@
-<?php
+<!-- ?php
 if (session_status() == PHP_SESSION_NONE) {
     session_name('Comedor');
     session_start();
@@ -8,11 +8,11 @@ if (session_status() == PHP_SESSION_NONE) {
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <?php  include "./models/head.php" ?>
+  ?php  include "./models/head.php" ?>
   <style:
 </head>
 <body>
-    <?php
+    ?php
         include './config/conectdb.php';
     ?>
 
@@ -26,111 +26,94 @@ if (session_status() == PHP_SESSION_NONE) {
       <label for="Contraseña">Constraseña:</label>
       <input type="password" id="password" name="login_contraseña" pattern="[a-zA-Z0-9$@.-]{7,100}" maxlength="50" autocomplete="off" required><br><br>
       <input type="submit" value="Iniciar sesión">
-      <?php
+      ?php
             if (isset($_GET['error'])) {
             ?>
             <p class="error">
-                <?php
+                ?php
                 echo $_GET['error']
+
+
                 ?>
             </p>
-        <?php
+        ?php
             }
         ?>
-
-      <!-- ?php 
-            //style
-            .error{
-                background-color: rgb(175, 74, 74);
-                color: black;
-                padding: 10px;
-                width: 95%;
-                border-radius: 5px;
-                margin: 20px auto;
-            }
-                
-
-
-        if(isset($_POST['login_usuario']) && isset($_POST['login_contraseña'])){
-            require_once "./config/conectdb.php";
-            require_once "./models/iniciar_sesion.php";
-        }
-
-      ?> -->
-
-    </form>
-</div>
-
-<!--
-#login_text{
-   border:solid 1px #CCCCCC;
-   /* Aqui están los famosos márgenes negativos*/
-/*    padding:2px; */
-   background:#FFFFFF; /* Le damos un color de fondo */
-color:#000000;
--moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    behavior:url(border-radius.htc)
-}
-
-
-
-#login-form {
-    display: block;
-padding-top:20px;
-}
-#login-form div.row {
-    clear: left;
-    line-height: 36px;
-    margin: 3px 0 0 2em;
-
-}
-#login-form .row label {
-    float: left;
-    font-weight: bold;
-    margin: 2px 2px 2px -8em;
-    position: relative;
-    text-align: right;
-    width: 14em;
-
-}
-#login-form .row .field {
-    background: none repeat scroll 0 0 #EAEAEA;
-    border-radius: 6px 6px 6px 6px;
-    display: inline-block;
-    padding: 1px 3px;
-
-}
-#login-form input.text, #login-form input.password {
-    background-color: #FFFFFF;
-    padding: 8px;
-    width: 25em;
-
-    
-}
-
-#login-form div.submit {
-    margin-top: 10px;
-
-}
-#login-form div.submit .button {
-    vertical-align: top;
-
-}
-#login-form div.row p {
-    clear: both;
-    font-size: 85%;
-    line-height: 150%;
-    margin: 5px 0 0;
-}
-#login-form .error .field, #update-form div.error {
-    background: none repeat scroll 0 0 rgba(171, 41, 32, 0.5);
-}
-#login-form .error input, #update-form .error textarea {
-    border: 1px solid #AB2920;
-
-}
+         
 -->
+
+<?php
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_name('Comedor');
+    session_start();
+}
+//session_start();
+
+if(isset($_SESSION['usuario'])){
+    header("location: bienvenido.php");
+
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="../vistas/styles.css">
+</head>
+<body>
+
+        <main>
+
+            <div class="contenedor__todo">
+                <div class="caja__trasera">
+                    <div class="caja__trasera-login">
+                        <h3>¿Ya tienes una cuenta?</h3>
+                        <p>Inicia sesión para entrar en la página</p>
+                        <button id="btn__iniciar-sesion">Iniciar Sesión</button>
+                    </div>
+                    <div class="caja__trasera-register">
+                        <h3>¿Aún no tienes una cuenta?</h3>
+                        <p>Regístrate para que puedas iniciar sesión</p>
+                        <button id="btn__registrarse">Regístrarse</button>
+                    </div>
+                </div>
+
+                <!--Formulario de Login y registro-->
+                <div class="contenedor__login-register">
+                    <!--Login-->
+                    <form action="models/login_usuario.php" class="formulario__login" method="POST">
+                        <h2>Iniciar Sesión</h2>
+                        <input type="text" placeholder="Usuario" name="usuario">
+                        <input type="password" placeholder="Contraseña" name = "contra">
+                        <button>Entrar</button>
+                    </form>
+
+                    <!--Register-->
+                    <form action="models/register_usuario.php" class="formulario__register" method="POST">
+                        <h2>Regístrarse</h2>
+                        <input type="text" placeholder="Nombre completo" name="nombre">
+                        <input type="text" placeholder="Cedula" name="cedula">
+                        <input type="text" placeholder="Usuario" name ="usuario">
+                        <input type="password" placeholder="Contraseña" name="contra">
+                        <button>Regístrarse</button>
+                    </form>
+                </div>
+            </div>
+
+        </main>
+
+        <script src="../vistas/scrips.js"></script>
+</body>
+</html>
+
 
 </body>
 </html>

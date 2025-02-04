@@ -112,17 +112,16 @@ function navegacion($pagina,$Npaginas,$url,$botones){
         }
         
 
-    if($pagina==$Npaginas){
-        $nav.='
-        </ul>
-        <a class="pagination-next is-disabled" disabled">Siguiente</a>
-        ';
-    }else{
+    if($pagina<$Npaginas){
         $nav.='
             <li><span class="pagination-ellipsis">&hellip;</span></li>
             <li><a class="pagination-link" href="'.$url.$Npaginas.'">'.$Npaginas.'</a></li>
-        </ul>
         <a class="pagination-next" href="'.$url.($pagina+1).'>Siguiente</a>
+        ';
+    }else{
+        $nav.='
+        </ul>
+        <a class="pagination-next is-disabled" disabled">Siguiente</a>
         ';
     }
 
@@ -136,47 +135,5 @@ function formulario(){
 
 };
 
-
-
-/*
-$conec = new mysqli("localhost", 'root', '', 'uner');
-    if ($conec->connect_error) {
-        die("Error de conexión: " . $conec1->connect_error);
-    } else {
-        echo "Conexión exitosa"; 
-    }
-
-    
-function conectarBD($host, $user, $pass, $db) {
-    $conexion = new mysqli($host, $user, $pass, $db);
-    if ($conexion->connect_error) {
-        die("Error de conexión a $db: " . $conexion->connect_error);
-    }
-    return $conexion;
-}
-
-$conec1 = conectarBD("localhost", "usuario1", "contraseña1", "cantiflas");
-$conec2 = conectarBD("localhost", "usuario2", "contraseña2", "emil");
-
-echo "Conexiones exitosas";
-
-$conec1->close();
-$conec2->close();
-*/
-
-/*
-//Funcion renombrarfotos
-function renombrar_fotos($nombre){
-    $nombre=str_ireplace(" ","_",$nombre);
-    $nombre=str_ireplace("/","_",$nombre);
-    $nombre=str_ireplace("#","_",$nombre);
-    $nombre=str_ireplace("-","_",$nombre);
-    $nombre=str_ireplace("$","_",$nombre);
-    $nombre=str_ireplace(".","_",$nombre);
-    $nombre=str_ireplace(",","_",$nombre);
-    $nombre=$nombre."_". rand(0, 100);
-    return $nombre;
-}
-*/
 
 ?>
